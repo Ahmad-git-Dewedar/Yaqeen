@@ -1,0 +1,122 @@
+/* ==========================================================================
+   Yaqeen design tokens
+   Colors, type, spacing and motion live here. Themes and user preferences
+   only ever change these variables; components read them.
+   ========================================================================== */
+
+:root {
+  /* Type families — Vazirmatn for Arabic, Kanchenjunga for Latin. */
+  --font-ar: "Vazirmatn", "Segoe UI", Tahoma, sans-serif;
+  --font-head: "Readex Pro", "Vazirmatn", "Segoe UI", sans-serif;
+  --font-quote: "Amiri", "Traditional Arabic", serif;
+  --font-en: "Kanchenjunga", "Vazirmatn", system-ui, sans-serif;
+
+  /* User-adjustable (written by js/boot.js). */
+  --font-scale: 1;
+  --fw: 200;
+  --leading: 1.95;
+
+  --fw-strong: calc(var(--fw) + 200);
+  --fw-en: 400; /* Kanchenjunga's lightest published weight */
+
+  /* Fluid type scale */
+  --step--2: 0.74rem;
+  --step--1: 0.86rem;
+  --step-0: 1rem;
+  --step-1: clamp(1.06rem, 1rem + 0.25vw, 1.18rem);
+  --step-2: clamp(1.2rem, 1.1rem + 0.45vw, 1.45rem);
+  --step-3: clamp(1.4rem, 1.2rem + 0.9vw, 1.9rem);
+  --step-4: clamp(1.75rem, 1.4rem + 1.7vw, 2.6rem);
+  --step-5: clamp(2.4rem, 1.7rem + 3.4vw, 4.2rem);
+
+  /* Space */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.25rem;
+  --space-8: 3rem;
+  --space-9: clamp(2.5rem, 5vw, 4rem);
+
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --max: 68rem;
+  --measure: 40rem;
+  --header-h: 4rem;
+
+  --radius-s: 6px;
+  --radius-m: 12px;
+  --radius-l: 20px;
+
+  /* Motion — every transition reads these, so preferences can scale them. */
+  --dur: 380ms;
+  --dur-fast: 180ms;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --reveal-shift: 1.5rem;
+
+  /* Paper grain (vintage print texture) */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain-opacity: 0.07;
+  --grain-blend: multiply;
+
+  /* Light theme (default) */
+  color-scheme: light;
+  --paper: #efece6;
+  --paper-raised: #f8f6f2;
+  --paper-sunk: #e4e0d8;
+  --ink: #0e0e10;
+  --ink-2: #45433d;
+  --muted: #6b6559;
+  --line: #d9d0bf;
+  --line-strong: #b5a990;
+  --accent: #865412;
+  --accent-strong: #6a410b;
+  --accent-soft: rgb(176 122 48 / 0.15);
+  --green: #1f4a3d;
+  --green-soft: rgb(31 74 61 / 0.1);
+  --danger: #973627;
+  --danger-soft: rgb(151 54 39 / 0.1);
+  --night: #0e0e10;
+  --gold: #c99a2e;
+  --on-night: #f1e9da;
+  --on-night-2: #cfc5b3;
+  --scrim: rgb(12 13 16 / 0.62);
+  --shadow: 0 1px 2px rgb(40 30 10 / 0.05), 0 18px 40px -20px rgb(40 30 10 / 0.28);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #111317;
+  --paper-raised: #181b20;
+  --paper-sunk: #0c0e11;
+  --ink: #ebe3d3;
+  --ink-2: #c4bba9;
+  --muted: #9a9283;
+  --line: #292c32;
+  --line-strong: #3f424a;
+  --accent: #d9a757;
+  --accent-strong: #eec27c;
+  --accent-soft: rgb(217 167 87 / 0.14);
+  --green: #8cc4aa;
+  --green-soft: rgb(140 196 170 / 0.12);
+  --danger: #e6978a;
+  --danger-soft: rgb(230 151 138 / 0.12);
+  --scrim: rgb(8 9 11 / 0.7);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 18px 40px -20px rgb(0 0 0 / 0.6);
+  --grain-opacity: 0.05;
+  --grain-blend: screen;
+}
+
+/* Motion preferences */
+:root[data-motion="reduced"] {
+  --dur: 180ms;
+  --dur-fast: 120ms;
+  --reveal-shift: 0px;
+}
+
+:root[data-motion="none"] {
+  --dur: 0ms;
+  --dur-fast: 0ms;
+  --reveal-shift: 0px;
+}

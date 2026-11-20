@@ -1,0 +1,26 @@
+{
+  "name": "yaqeen",
+  "version": "2.0.0",
+  "private": true,
+  "description": "يقين: موقع تعليمي في العقيدة الإسلامية",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "framer-motion": "12.43.0",
+    "lenis": "1.3.26",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "4.7.0",
+    "vite": "6.4.1"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

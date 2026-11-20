@@ -1,0 +1,385 @@
+/* ==========================================================================
+   Motion: a modern take on vintage print
+   Paintings "develop" from sepia as they unroll, ornaments are drawn in ink,
+   text rises line by line, and paper grain sits over everything
+
+   Levels (set by js/boot.js on <html data-motion>):
+     full     every effect, including parallax, slow drift and grain flicker
+     reduced  plain fades, nothing moves
+     none     no animation at all
+   ========================================================================== */
+
+/* ---------- Paper grain ---------- */
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  mix-blend-mode: var(--grain-blend);
+  background-image: var(--grain);
+  background-size: 180px;
+}
+
+/* ---------- Scroll reveal with cascade ---------- */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-shift));
+  transition:
+    opacity calc(var(--dur) * 1.5) var(--ease),
+    transform calc(var(--dur) * 1.5) var(--ease);
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+
+.js [data-reveal][data-visible] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Lists inside a revealed block arrive one item at a time */
+.js [data-stagger] > * {
+  opacity: 0;
+  transform: translateY(calc(var(--reveal-shift) * 0.6));
+  transition:
+    opacity var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+  transition-delay: calc(120ms + var(--i, 0) * 70ms);
+}
+
+.js [data-visible][data-stagger] > *,
+.js [data-visible] [data-stagger] > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Ink ornaments ---------- */
+
+.ornament {
+  display: inline-block;
+  width: 0.95em;
+  height: 0.95em;
+  margin-inline-end: 0.45em;
+  vertical-align: -0.12em;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.3;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition:
+    stroke-dashoffset calc(var(--dur) * 3) var(--ease) 200ms,
+    rotate calc(var(--dur) * 3) var(--ease) 200ms;
+}
+
+.chapter__head--on-art .ornament {
+  stroke: #e2b46a;
+}
+
+.js[data-motion="full"] [data-reveal]:not([data-visible]) .ornament {
+  stroke-dashoffset: 1;
+  rotate: -90deg;
+}
+
+/* A hairline is drawn under each chapter heading */
+.chapter__head::after {
+  content: "";
+  grid-column: 1 / -1;
+  height: 1px;
+  background: linear-gradient(to left, var(--accent), var(--line) 40%, transparent);
+  transform-origin: right center;
+  transition: transform calc(var(--dur) * 3) var(--ease) 250ms;
+}
+
+.chapter__head--on-art::after {
+  background: linear-gradient(to left, #e2b46a, rgb(241 233 218 / 0.2) 40%, transparent);
+}
+
+.js[data-motion="full"] .chapter__head:not([data-visible])::after {
+  transform: scaleX(0);
+}
+
+/* The chapter number slides up out of a mask */
+.chapter__num {
+  transition:
+    clip-path calc(var(--dur) * 2) var(--ease) 100ms,
+    translate calc(var(--dur) * 2) var(--ease) 100ms;
+}
+
+.js[data-motion="full"] .chapter__head:not([data-visible]) .chapter__num {
+  clip-path: inset(0 0 100% 0);
+  translate: 0 0.35em;
+}
+
+/* Evidence blocks get a gold rule that grows down their edge */
+.evidence::before {
+  content: "";
+  position: absolute;
+  inset-block: var(--space-4);
+  inset-inline-start: -1px;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform-origin: top;
+  transition: scale calc(var(--dur) * 2.4) var(--ease) 300ms;
+}
+
+.evidence--wide::before {
+  display: none;
+}
+
+.js[data-motion="full"] [data-reveal]:not([data-visible]) .evidence::before,
+.js[data-motion="full"] .evidence[data-reveal]:not([data-visible])::before {
+  scale: 1 0;
+}
+
+/* ---------- Paintings ---------- */
+
+/* Each painting unrolls from the right (the reading direction) and develops
+   from an old sepia print into full colour */
+.js[data-motion="full"] .art:not(.hero__art) {
+  clip-path: inset(0 0 0 100%);
+  scale: 1.16;
+  filter: sepia(0.7) saturate(0.6) brightness(1.08) contrast(0.92);
+  transition:
+    clip-path calc(var(--dur) * 2.4) cubic-bezier(0.7, 0, 0.18, 1),
+    scale calc(var(--dur) * 3.2) var(--ease),
+    filter calc(var(--dur) * 3.5) var(--ease) calc(var(--dur) * 0.8);
+}
+
+.js[data-motion="full"] .art[data-shown]:not(.hero__art) {
+  clip-path: inset(0);
+  scale: 1;
+  filter: none;
+}
+
+/* Full-bleed bands keep a little extra size so parallax never shows an edge */
+.js[data-motion="full"] [data-parallax] .art[data-shown] {
+  scale: 1.1;
+}
+
+[data-parallax] .art {
+  translate: 0 var(--py, 0px);
+}
+
+.js[data-motion="full"] .plate:hover .art[data-shown] {
+  scale: 1.04;
+}
+
+/* Vintage mount: soft vignette and a fine inner frame line */
+.plate {
+  position: relative;
+}
+
+.plate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 4rem rgb(40 25 5 / 0.32);
+  outline: 1px solid rgb(255 250 240 / 0.35);
+  outline-offset: -0.7rem;
+}
+
+/* ---------- Hero ---------- */
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.09;
+  background-image: var(--grain);
+  background-size: 200px;
+  mix-blend-mode: overlay;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes develop {
+  from {
+    opacity: 0;
+    scale: 1.18;
+    filter: sepia(1) brightness(0.55) blur(8px);
+  }
+  60% {
+    opacity: 1;
+  }
+}
+
+@keyframes drift {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 1.08;
+  }
+}
+
+@keyframes ink {
+  from {
+    clip-path: inset(0 0 0 100%);
+    filter: blur(6px);
+    opacity: 0.2;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 1rem;
+  }
+}
+
+@keyframes spread {
+  from {
+    opacity: 0;
+    letter-spacing: 0.7em;
+  }
+}
+
+@keyframes grain-flicker {
+  0% { translate: 0 0; }
+  20% { translate: -6% 4%; }
+  40% { translate: 5% -7%; }
+  60% { translate: -3% 8%; }
+  80% { translate: 7% 2%; }
+  100% { translate: 0 0; }
+}
+
+/* ---------- Small interactions ---------- */
+
+/* Underlines are drawn in, right to left */
+.step-link__title,
+.takeaways a > span:last-child,
+.route__list a {
+  background: linear-gradient(currentColor, currentColor) no-repeat right bottom / 0 1px;
+  transition:
+    background-size calc(var(--dur) * 1.2) var(--ease),
+    color var(--dur-fast) var(--ease),
+    padding var(--dur-fast) var(--ease);
+}
+
+.route__list a {
+  background-image: linear-gradient(var(--accent), var(--accent));
+}
+
+.step-link:hover .step-link__title,
+.takeaways a:hover > span:last-child,
+.route__list a:hover {
+  background-size: 100% 1px;
+}
+
+.btn--light,
+.btn--solid {
+  box-shadow: 0 0 0 0 rgb(226 180 106 / 0);
+}
+
+.btn--light:hover,
+.btn--solid:hover {
+  box-shadow: 0 0.6rem 1.6rem -0.8rem rgb(226 180 106 / 0.8);
+  translate: 0 -1px;
+}
+
+.btn {
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    translate var(--dur-fast) var(--ease);
+}
+
+/* Pillar panels: the big numeral swings in, the text follows */
+@keyframes numeral-in {
+  from {
+    opacity: 0;
+    translate: 1.5rem 0;
+    rotate: 6deg;
+  }
+}
+
+.pillar-panel:not([hidden]) .pillar-panel__num {
+  animation: numeral-in calc(var(--dur) * 1.6) var(--ease) both;
+}
+
+.pillar-panel:not([hidden]) .pillar-panel__body > * {
+  animation: fade-in var(--dur) var(--ease) both;
+}
+
+.pillar-panel:not([hidden]) .pillar-panel__body > :nth-child(2) { animation-delay: 80ms; }
+.pillar-panel:not([hidden]) .pillar-panel__body > :nth-child(3) { animation-delay: 160ms; }
+.pillar-panel:not([hidden]) .pillar-panel__body > :nth-child(4) { animation-delay: 240ms; }
+
+/* Quiz answers arrive one after another */
+.quiz__options .option {
+  animation: fade-in var(--dur) var(--ease) both;
+}
+
+.quiz__options .option:nth-child(2) { animation-delay: 70ms; }
+.quiz__options .option:nth-child(3) { animation-delay: 140ms; }
+.quiz__options .option:nth-child(4) { animation-delay: 210ms; }
+
+.option:not([aria-disabled="true"]):hover .option__key {
+  border-color: #e2b46a;
+  color: #e2b46a;
+  rotate: -8deg;
+}
+
+.option__key {
+  transition: rotate var(--dur) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+
+.meter__fill {
+  transition: transform calc(var(--dur) * 3) var(--ease);
+}
+
+/* Progress pill gives a small bump when a chapter completes */
+@keyframes bump {
+  40% {
+    scale: 1.25;
+  }
+}
+
+.progress-pill.is-bumped {
+  animation: bump 0.6s var(--ease);
+}
+
+/* ---------- Turning motion down ---------- */
+
+/* Decorative hidden states above apply only to "full"; reduced keeps plain fades */
+:root[data-motion="reduced"] [data-reveal],
+:root[data-motion="reduced"] [data-stagger] > * {
+  transform: none;
+  transition-delay: 0s;
+}
+
+.js[data-motion="reduced"] .art:not(.hero__art) {
+  opacity: 0;
+  transition: opacity calc(var(--dur) * 3) ease;
+}
+
+.js[data-motion="reduced"] .art[data-shown]:not(.hero__art) {
+  opacity: 1;
+}
+
+:root[data-motion="none"] *,
+:root[data-motion="none"] *::before,
+:root[data-motion="none"] *::after {
+  animation: none;
+  transition-duration: 0s;
+  transition-delay: 0s;
+}
+
+:root[data-motion="none"] [data-reveal],
+:root[data-motion="none"] [data-stagger] > * {
+  opacity: 1;
+  transform: none;
+}

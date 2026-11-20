@@ -1,0 +1,329 @@
+/* ==========================================================================
+   React layer: styles for the animated components, plus a more compact
+   rhythm across the page
+   ========================================================================== */
+
+/* ---------- Animated words ---------- */
+
+.word {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
+/* ---------- Header ---------- */
+
+.site-header__current {
+  opacity: 1;
+}
+
+.site-header__current > span {
+  display: inline-block;
+}
+
+.read-progress__fill {
+  transform-origin: right center;
+  transition: none;
+}
+
+/* ---------- Rail: the ring glides between chapters ---------- */
+
+.rail__link[aria-current="true"]::before {
+  border-color: transparent;
+}
+
+.rail__ring {
+  position: absolute;
+  inset: 0.4rem;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  min-height: min(92svh, 46rem);
+}
+
+.hero__inner {
+  will-change: transform, opacity;
+}
+
+.hero__cue {
+  position: absolute;
+  inset-block-end: 1.1rem;
+  inset-inline-start: 50%;
+  z-index: 2;
+  display: block;
+  width: 1px;
+  height: 2.6rem;
+  overflow: hidden;
+  translate: 50% 0;
+  background: rgb(241 233 218 / 0.18);
+}
+
+.hero__cue span {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent, #e2b46a);
+}
+
+@keyframes cue {
+  0% { translate: 0 -100%; }
+  60%, 100% { translate: 0 100%; }
+}
+
+:root[data-motion="full"] .hero__cue span {
+  animation: cue 2.2s cubic-bezier(0.6, 0, 0.3, 1) 2.4s infinite;
+}
+
+/* ---------- Pillar tabs: one underline slides between tabs ---------- */
+
+.pillar-tab::after {
+  display: none;
+}
+
+.pillar-tab__line {
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.pillars__seen:empty {
+  display: block;
+}
+
+/* ---------- Disclosures and FAQ (heights animated in JS) ---------- */
+
+.disclose__panel > .evidence:first-child {
+  margin-block-start: var(--space-3);
+}
+
+.faq__h {
+  margin: 0;
+  font: inherit;
+}
+
+.faq__q {
+  width: 100%;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-align: start;
+}
+
+.faq__item.is-open .faq__icon {
+  transform: rotate(-90deg);
+}
+
+.faq__item.is-open .faq__q {
+  color: var(--accent);
+}
+
+.faq__a {
+  padding: 0;
+}
+
+.faq__a-inner {
+  padding-block-end: var(--space-5);
+}
+
+.faq__a-inner > p {
+  font-size: var(--step-1);
+  max-width: var(--measure);
+}
+
+/* ---------- Quiz ---------- */
+
+.quiz__card {
+  animation: none;
+}
+
+.quiz__step {
+  display: block;
+}
+
+.score__value {
+  position: relative;
+}
+
+.sparks {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 1.2em;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.spark {
+  position: absolute;
+  width: 0.9rem;
+  height: 0.9rem;
+  margin: -0.45rem;
+  fill: none;
+  stroke: #e2b46a;
+  stroke-width: 1.4;
+}
+
+.meter__fill--motion {
+  transform-origin: right center;
+  transition: none;
+}
+
+.quiz__next[disabled] {
+  pointer-events: none;
+}
+
+/* ---------- Closing plate ---------- */
+
+.closing__text {
+  display: block;
+}
+
+/* ---------- Small hover life ---------- */
+
+.facet {
+  transition: translate var(--dur) var(--ease);
+}
+
+.facet:hover {
+  translate: 0 -3px;
+}
+
+.effect {
+  transition: background-color var(--dur) var(--ease), padding var(--dur) var(--ease);
+}
+
+.effect:hover .effect__name {
+  color: var(--accent);
+}
+
+.effect__name {
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.source::before {
+  transition: scale var(--dur) var(--ease);
+}
+
+.source:hover::before {
+  scale: 1.4;
+}
+
+/* ---------- Compact rhythm: less empty space ---------- */
+
+.chapter__head {
+  margin-block-end: var(--space-5);
+  row-gap: var(--space-2);
+}
+
+.chapter__foot {
+  margin-block-start: var(--space-6);
+  padding-block-start: var(--space-3);
+}
+
+.step-link__title {
+  font-size: var(--step-0);
+}
+
+.statement {
+  margin-block: var(--space-5);
+}
+
+.eyebrow-title {
+  margin-block: var(--space-5) var(--space-3);
+}
+
+.evidence {
+  margin-block-start: var(--space-4);
+}
+
+.route {
+  margin-block-start: var(--space-5);
+}
+
+.banner {
+  min-height: clamp(17rem, 44vh, 26rem);
+  margin-block-end: var(--space-5);
+}
+
+.banner__body {
+  padding-block: var(--space-6);
+}
+
+.immersive {
+  min-height: clamp(18rem, 50vh, 28rem);
+  margin-block-end: var(--space-4);
+}
+
+.immersive__inner {
+  padding-block: var(--space-7) var(--space-5);
+}
+
+.quiz-stage {
+  padding-block: var(--space-7);
+}
+
+.closing {
+  min-height: clamp(13rem, 34vh, 20rem);
+  margin-block-end: var(--space-5);
+  padding-block: var(--space-6);
+}
+
+.facets {
+  gap: var(--space-5);
+}
+
+@media (min-width: 56rem) {
+  .facets {
+    column-gap: var(--space-6);
+  }
+}
+
+.effect {
+  padding-block: var(--space-4);
+}
+
+.pillars__bar {
+  margin-block-end: var(--space-4);
+}
+
+.pillar-panel__num {
+  font-size: clamp(4rem, 2.5rem + 7vw, 8rem);
+}
+
+@media (min-width: 48rem) {
+  .pillar-panel {
+    grid-template-columns: 8.5rem 1fr;
+  }
+}
+
+.callout {
+  margin-block-start: var(--space-5);
+}
+
+.evidence--wide {
+  margin-block-start: var(--space-5);
+}
+
+.note-line {
+  margin-block-end: var(--space-5);
+}
+
+.sources,
+.definition,
+.conclusion,
+.refs {
+  gap: var(--space-5);
+}
+
+.faq__q {
+  padding-block: var(--space-3);
+}
+
+.site-footer {
+  padding-block: var(--space-6) var(--space-5);
+}

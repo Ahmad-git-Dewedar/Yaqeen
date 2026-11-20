@@ -1,0 +1,710 @@
+/* ==========================================================================
+   Theme: editorial cream and ink, gold accents, quick masked reveals
+   Headings use Readex Pro, Quran and hadith use Amiri, body stays Vazirmatn
+   ========================================================================== */
+
+/* ---------- Typefaces ---------- */
+
+h1,
+h2,
+h3,
+h4,
+.chapter__title,
+.hero__title,
+.hero__slogan,
+.intro__question,
+.eyebrow-title,
+.def-pair dt,
+.pillar-tab,
+.pillar-panel__title,
+.facet__title,
+.source__title,
+.callout__title,
+.effect__name,
+.faq__q,
+.closing__text,
+.tally__title,
+.method__title,
+.quiz__heading,
+.quiz__question,
+.sheet__title,
+.brand__ar,
+.stat__v,
+.marquee,
+.loader__name,
+.head__idx {
+  font-family: var(--font-head);
+}
+
+h1,
+h2,
+h3,
+h4,
+.chapter__title,
+.pillar-panel__title,
+.facet__title,
+.source__title,
+.effect__name,
+.faq__q,
+.quiz__heading,
+.quiz__question {
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.evidence__text,
+.banner__quote {
+  font-family: var(--font-quote);
+  font-weight: 400;
+  line-height: 2;
+}
+
+.evidence__text {
+  font-size: calc(var(--step-1) * 1.08);
+}
+
+.evidence--compact .evidence__text {
+  font-size: calc(var(--step-0) * 1.1);
+}
+
+.evidence--wide .evidence__text {
+  font-size: var(--step-2);
+}
+
+.banner__quote {
+  font-size: var(--step-3);
+  line-height: 1.9;
+}
+
+/* Comfortable body text */
+.lead {
+  font-size: calc(var(--step-0) * 1.06);
+  line-height: 1.9;
+}
+
+.prose,
+.pillar-panel__text,
+.faq__a-inner > p,
+.effect__body > p {
+  max-width: 38rem;
+}
+
+/* ---------- Masked words ---------- */
+
+.wmask {
+  display: inline-block;
+  overflow: clip;
+  padding-block: 0.12em 0.22em;
+  margin-block: -0.12em -0.22em;
+  vertical-align: top;
+}
+
+.word {
+  display: inline-block;
+}
+
+/* ---------- Opening sequence ---------- */
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 0.6rem;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+:root[data-theme="dark"] .loader {
+  background: var(--night);
+  color: var(--on-night);
+}
+
+.loader__star {
+  width: 2.4rem;
+  height: 2.4rem;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+
+.loader__mask {
+  display: block;
+  overflow: clip;
+  padding-block: 0.1em 0.25em;
+}
+
+.loader__name {
+  display: block;
+  font-size: clamp(3rem, 2rem + 5vw, 5.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.loader__cap {
+  font-size: var(--step--1);
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.loader__foot {
+  position: fixed;
+  inset: auto var(--gutter) clamp(1.5rem, 5vh, 3rem);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-head);
+  font-size: var(--step--1);
+  color: var(--muted);
+}
+
+.loader__bar {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.loader__bar > span {
+  display: block;
+  height: 100%;
+  background: var(--gold);
+  transform-origin: right center;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  height: 3.6rem;
+  background: rgb(239 236 230 / 0.82);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+:root[data-theme="dark"] .site-header {
+  background: rgb(14 14 16 / 0.82);
+}
+
+.site-header[data-over-art] {
+  background: transparent;
+  border-color: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.brand__ar {
+  font-weight: 600;
+}
+
+.read-progress__fill {
+  background: var(--gold);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  min-height: min(100svh, 52rem);
+  align-items: end;
+}
+
+.hero__art {
+  transform-origin: 50% 60%;
+}
+
+.hero::after {
+  background:
+    linear-gradient(to top, rgb(14 14 16 / 0.95) 0%, rgb(14 14 16 / 0.5) 40%, rgb(14 14 16 / 0.15) 72%, rgb(14 14 16 / 0.5) 100%),
+    linear-gradient(to left, rgb(14 14 16 / 0.5), transparent 60%);
+}
+
+/* A soft light follows the pointer (centred until the pointer moves) */
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(28rem 22rem at var(--mx, 65%) var(--my, 40%), rgb(226 180 106 / 0.16), transparent 70%);
+  transition: background-position 0.2s;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  gap: var(--space-3);
+  padding-block: calc(var(--header-h) + var(--space-7)) var(--space-8);
+}
+
+.hero__kicker {
+  font-size: var(--step--1);
+  color: #e2b46a;
+}
+
+.hero__title {
+  font-size: clamp(3.2rem, 2rem + 6vw, 6rem);
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.hero__slogan {
+  font-size: var(--step-2);
+  font-weight: 400;
+  color: #e9c98f;
+}
+
+.hero__desc {
+  max-width: 30rem;
+  font-size: var(--step-0);
+}
+
+.hero__actions {
+  margin-block-start: var(--space-2);
+}
+
+.hero__meta-wrap {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+}
+
+.hero__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin: 0;
+  padding: var(--space-3) var(--gutter);
+  border: 0;
+  font-size: var(--step--2);
+  color: var(--on-night-2);
+}
+
+.hero__meta > *::before {
+  display: none;
+}
+
+.hero__scroll {
+  text-decoration: none;
+  color: var(--on-night);
+}
+
+@keyframes hint {
+  0%, 100% { translate: 0 0; opacity: 0.6; }
+  50% { translate: 0 4px; opacity: 1; }
+}
+
+:root[data-motion="full"] .hero__scroll {
+  animation: hint 1.8s var(--ease) infinite;
+}
+
+:root[data-motion="full"] .hero::before {
+  animation: grain-flicker 0.9s steps(5) infinite;
+}
+
+.hero__cue {
+  display: none;
+}
+
+@media (max-width: 40rem) {
+  .hero__meta > :not(.hero__scroll) {
+    display: none;
+  }
+
+  .hero__meta {
+    justify-content: center;
+  }
+
+}
+
+/* ---------- Marquee ---------- */
+
+.marquee {
+  overflow: hidden;
+  direction: ltr;
+  padding-block: 0.9rem;
+  border-block: 1px solid var(--line);
+  font-size: var(--step-2);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+}
+
+.marquee__row {
+  display: flex;
+  direction: rtl;
+}
+
+.marquee__row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.2rem;
+  padding-inline-end: 2.2rem;
+}
+
+.marquee__row span::after {
+  content: "✦";
+  font-size: 0.55em;
+  color: var(--gold);
+}
+
+@keyframes marquee {
+  to {
+    translate: -50% 0;
+  }
+}
+
+:root[data-motion="full"] .marquee__track {
+  animation: marquee 38s linear infinite;
+}
+
+.marquee:hover .marquee__track {
+  animation-play-state: paused;
+}
+
+/* ---------- Chapter heads: hairline, gold index, bold title ---------- */
+
+.chapter {
+  padding-block: var(--space-8);
+  border-block-start: 0;
+}
+
+.chapter__head {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
+  margin-block-end: var(--space-5);
+}
+
+.chapter__head::before {
+  content: "";
+  height: 1px;
+  margin-block-end: var(--space-2);
+  background: var(--line);
+}
+
+.chapter__head--on-art::before {
+  background: rgb(241 233 218 / 0.2);
+}
+
+/* the drawn hairline from motion.css moves to the top */
+.chapter__head::after {
+  display: none;
+}
+
+.head__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--step--1);
+}
+
+.head__idx {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.chapter__head--on-art .head__idx {
+  color: #e2b46a;
+}
+
+.head__meta .ornament {
+  margin: 0;
+  width: 0.8em;
+  height: 0.8em;
+}
+
+.head__kicker {
+  color: var(--muted);
+}
+
+.chapter__head--on-art .head__kicker {
+  color: var(--on-night-2);
+}
+
+.chapter__title {
+  max-width: 22ch;
+  font-size: var(--step-4);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.chapter__sub {
+  max-width: 34rem;
+  margin: 0;
+  color: var(--muted);
+}
+
+/* Header fades only; its words do the rising */
+.js [data-reveal].chapter__head {
+  transform: none;
+}
+
+/* ---------- Stats ---------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-block-start: var(--space-6);
+  border-block: 1px solid var(--line);
+}
+
+.stat {
+  display: grid;
+  gap: var(--space-1);
+  height: 100%;
+  padding: var(--space-4) var(--space-3);
+  text-decoration: none;
+  transition: background-color var(--dur) var(--ease);
+}
+
+.stats li + li .stat {
+  border-inline-start: 1px solid var(--line);
+}
+
+.stat:hover {
+  background: var(--paper-raised);
+}
+
+.stat__v {
+  font-size: var(--step-4);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.stat__l {
+  font-size: var(--step--1);
+  color: var(--ink-2);
+}
+
+@media (max-width: 40rem) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats li:nth-child(3) .stat {
+    border-inline-start: 0;
+  }
+
+  .stats li:nth-child(n + 3) .stat {
+    border-block-start: 1px solid var(--line);
+  }
+}
+
+/* ---------- Sections: tighter and calmer ---------- */
+
+.intro {
+  gap: var(--space-3) var(--space-7);
+}
+
+.intro__question {
+  font-size: var(--step-3);
+  font-weight: 500;
+}
+
+.eyebrow-title {
+  font-size: var(--step-0);
+  font-weight: 500;
+}
+
+.def-pair dt {
+  font-size: var(--step-2);
+  font-weight: 500;
+}
+
+.def-pair dd {
+  font-size: var(--step-0);
+}
+
+.pillar-tab {
+  font-size: var(--step--1);
+}
+
+.pillar-tab__num {
+  font-size: var(--step-1);
+}
+
+.pillar-panel__title,
+.source__title {
+  font-size: var(--step-2);
+}
+
+.pillar-panel__text {
+  font-size: var(--step-0);
+}
+
+.facet__title,
+.effect__name,
+.callout__title {
+  font-size: var(--step-1);
+}
+
+.faq__q {
+  font-size: var(--step-1);
+}
+
+.immersive__lead {
+  font-size: var(--step-1);
+}
+
+.closing__text {
+  font-size: var(--step-3);
+  font-weight: 500;
+}
+
+.statement {
+  font-size: var(--step-1);
+}
+
+.statement--center {
+  font-size: var(--step-2);
+  font-family: var(--font-head);
+  font-weight: 400;
+}
+
+.ledger__num,
+.takeaways__num {
+  font-family: var(--font-head);
+  font-size: var(--step-1);
+}
+
+.quiz__heading,
+.quiz__question {
+  font-size: var(--step-2);
+}
+
+.score__value {
+  font-family: var(--font-head);
+  font-size: var(--step-5);
+}
+
+/* Quiz now closes the page */
+.chapter--quiz .chapter__foot {
+  margin-block-start: var(--space-5);
+}
+
+/* ---------- Faster hovers ---------- */
+
+.btn {
+  transition-duration: 0.25s;
+}
+
+/* ---------- Lenis ---------- */
+
+/* Lenis drives scrolling, so native smooth scrolling must stay off */
+html.lenis {
+  scroll-behavior: auto;
+}
+
+/* ---------- Opening gate: the page waits on the hero ---------- */
+
+html.is-gated,
+html.is-gated body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.hero__zoom {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.hero__zoom .hero__art {
+  z-index: auto;
+}
+
+@keyframes nudge {
+  0%, 100% { translate: 0 0; box-shadow: 0 0 0 0 rgb(226 180 106 / 0.6); }
+  30% { translate: 0 -5px; }
+  60% { translate: 0 0; box-shadow: 0 0 0 12px rgb(226 180 106 / 0); }
+}
+
+.btn--start.is-nudged {
+  animation: nudge 0.8s var(--ease);
+}
+
+/* ---------- Paintings: a gold wipe uncovers each one ---------- */
+
+.art-wipe {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: right center;
+}
+
+.plate .art-wipe {
+  z-index: 1;
+  border-radius: inherit;
+}
+
+@keyframes wipe {
+  0% { transform: scaleX(0); transform-origin: right center; }
+  44% { transform: scaleX(1); transform-origin: right center; }
+  56% { transform: scaleX(1); transform-origin: left center; }
+  100% { transform: scaleX(0); transform-origin: left center; }
+}
+
+@keyframes art-in {
+  from {
+    opacity: 0;
+    scale: 1.22;
+    filter: saturate(0.3) brightness(0.75) blur(6px);
+  }
+}
+
+/* Full motion: replace the earlier unroll with wipe + settle */
+.js[data-motion="full"] .art:not(.hero__art) {
+  clip-path: none;
+  opacity: 0;
+  scale: var(--art-scale, 1);
+  filter: none;
+  transition: scale 1.2s var(--ease);
+}
+
+.js[data-motion="full"] .art[data-shown]:not(.hero__art) {
+  opacity: 1;
+  animation: art-in 1.3s cubic-bezier(0.16, 1, 0.3, 1) 0.45s backwards;
+}
+
+.js[data-motion="full"] .art[data-shown] + .art-wipe {
+  animation: wipe 1.05s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+[data-parallax] {
+  --art-scale: 1.1;
+}
+
+.js[data-motion="full"] [data-parallax] .art[data-shown] {
+  scale: var(--art-scale);
+}
+
+.js[data-motion="full"] .plate:hover .art[data-shown] {
+  scale: calc(var(--art-scale, 1) * 1.04);
+}
+
+/* ---------- Quiz options that quote a verse ---------- */
+
+.option__text.is-verse {
+  font-family: var(--font-quote);
+  font-size: 1.06em;
+  line-height: 1.9;
+}
+
+/* The definition painting stays pinned beside the text on wide screens.
+   (".plate" sets position: relative for its frame, which would otherwise
+   turn the sticky "top" into a plain downward shift over the links below) */
+@media (min-width: 60rem) {
+  .definition__plate {
+    position: sticky;
+  }
+}
