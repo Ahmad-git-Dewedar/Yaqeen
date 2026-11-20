@@ -8,7 +8,13 @@ export default function Footer() {
           <p className="brand__ar">يقين</p>
           <Words className="site-footer__slogan" text="تعلم دينك.. وازدد يقينك" />
         </div>
-        <p className="site-footer__note">موقع تعليمي في أصول العقيدة الإسلامية من القرآن الكريم والسنة</p>
+        <div className="site-footer__notes">
+          <p className="site-footer__note">موقع تعليمي في أصول العقيدة الإسلامية من القرآن الكريم والسنة</p>
+          <p className="site-footer__source">
+            المصدر:{" "}
+            <a href="https://binbaz.org.sa" target="_blank" rel="noopener noreferrer">موقع الإمام ابن باز رحمه الله</a>
+          </p>
+        </div>
         <p className="site-footer__en" lang="en">YAQEEN · Learn your faith, grow in certainty</p>
       </div>
     </footer>

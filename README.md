@@ -63,8 +63,9 @@ docs/content-source/    Pages of the approved content document
 ## Content
 
 - Ten stations; the last one is an optional quiz that does not count toward completion
-- Quiz: ten harder questions with four close options each (which verse proves which kind of tawhid, which
-  hadith supports which effect, and so on), all answerable from the site's own text
+- Quiz: ten questions supplied by the site owner, four options each, with a short explanation linking back to
+  the relevant station
+- Source note in the footer: موقع الإمام ابن باز (binbaz.org.sa)
 - Text follows the approved content document. Every Quran quotation was checked against the Tanzil text;
   hadith wording and numbers were checked on sunnah.com (Muslim 8, Muslim 2999, Bukhari 9, Abu Dawud 4682)
 - Writing style: no em dashes, no period at the end of sentences, short text, no tashkeel in regular text.

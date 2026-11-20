@@ -507,3 +507,25 @@
 .setting > legend + * {
   clear: both;
 }
+
+/* Footer source note */
+.site-footer__notes {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.site-footer__source {
+  font-size: var(--step--1);
+  color: var(--on-night-2);
+}
+
+.site-footer__source a {
+  color: #e2b46a;
+  text-decoration-color: rgb(226 180 106 / 0.5);
+  text-underline-offset: 0.3em;
+  transition: color var(--dur-fast) var(--ease);
+}
+
+.site-footer__source a:hover {
+  color: var(--on-night);
+}
