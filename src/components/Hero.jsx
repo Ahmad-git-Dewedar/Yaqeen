@@ -89,17 +89,16 @@ export default function Hero({ ready, level }) {
       <div className="hero__veil" aria-hidden="true" />
 
       <motion.div className="hero__inner" style={{ y: copyY, opacity: fade }} initial="hidden" animate={state}>
-        <motion.p className="hero__kicker" variants={rise(0.05)}>رحلة في العقيدة الإسلامية</motion.p>
         <motion.div variants={rise(0.1)}>
           <Words as="h1" className="hero__title" id="hero-title" text="يقين" play={ready} delay={0.1} />
         </motion.div>
         <motion.div variants={rise(0.2)}>
-          <Words className="hero__slogan" text="تعلم دينك.. وازدد يقينك" play={ready} delay={0.3} />
+          <Words className="hero__slogan" text="تعلم العقيدة الإسلامية في رحلة ممتعة" play={ready} delay={0.3} />
         </motion.div>
         <motion.div className="hero__actions" variants={rise(0.45)}>
           <motion.a
             ref={startRef}
-            className="btn btn--light btn--start"
+            className="btn btn--start"
             href="#intro"
             onClick={(e) => begin(e, "intro")}
             whileHover={{ scale: 1.04 }}

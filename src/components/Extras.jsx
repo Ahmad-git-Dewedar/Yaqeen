@@ -16,7 +16,7 @@ import {
 import { scrollToElement } from "../hooks/useSmoothScroll.js";
 import { ar, motionLevel } from "../lib/utils.js";
 
-const BAND = ["تعلم دينك", "وازدد يقينك", "أركان الإيمان", "التوحيد", "القرآن والسنة", "الطمأنينة", "التوكل", "حسن الخلق"];
+const BAND = ["العقيدة الإسلامية", "رحلة ممتعة", "أركان الإيمان", "التوحيد", "القرآن والسنة", "الطمأنينة", "التوكل", "حسن الخلق"];
 
 const wrap = (min, max, v) => {
   const range = max - min;

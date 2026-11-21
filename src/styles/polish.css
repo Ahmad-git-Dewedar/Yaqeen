@@ -529,3 +529,199 @@
 .site-footer__source a:hover {
   color: var(--on-night);
 }
+
+/* ---------- Start button: green and prominent ---------- */
+
+.btn--start {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 3.4rem;
+  padding-inline: 2.4rem;
+  border: 0;
+  font-family: var(--font-head);
+  font-size: var(--step-1);
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(180deg, #2a8a5a, #1d6b45);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.18),
+    0 14px 34px -12px rgb(42 138 90 / 0.75);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    translate var(--dur-fast) var(--ease);
+}
+
+.btn--start:hover {
+  background: linear-gradient(180deg, #31996a, #217a4f);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.22),
+    0 18px 42px -12px rgb(49 153 106 / 0.9);
+  translate: 0 -2px;
+}
+
+.btn--start:focus-visible {
+  outline-color: #7fd3a6;
+}
+
+/* light sweep */
+.btn--start::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / 0.35) 50%, transparent 70%);
+  translate: 120% 0;
+  transition: translate 0.7s var(--ease);
+}
+
+.btn--start:hover::after {
+  translate: -120% 0;
+}
+
+/* a soft green halo breathes while the page waits for the start */
+@keyframes halo {
+  0% { box-shadow: 0 0 0 0 rgb(42 138 90 / 0.55), 0 14px 34px -12px rgb(42 138 90 / 0.75); }
+  70% { box-shadow: 0 0 0 16px rgb(42 138 90 / 0), 0 14px 34px -12px rgb(42 138 90 / 0.75); }
+  100% { box-shadow: 0 0 0 0 rgb(42 138 90 / 0), 0 14px 34px -12px rgb(42 138 90 / 0.75); }
+}
+
+:root[data-motion="full"].is-gated .btn--start:not(:hover) {
+  animation: halo 2.4s var(--ease) 1.5s infinite;
+}
+
+:root.is-gated .btn--start.is-nudged {
+  animation: nudge 0.8s var(--ease);
+}
+
+/* ==========================================================================
+   Responsive pass: phones, tablets, laptops and wide screens
+   ========================================================================== */
+
+/* Prev / next arrows keep a gap (inline-block trims a trailing space) */
+.step-link--next .step-link__title::after {
+  content: "←";
+  margin-inline-start: 0.45em;
+}
+
+.step-link--prev .step-link__title::before {
+  content: "→";
+  margin-inline-end: 0.45em;
+}
+
+/* The brand link is a comfortable tap target */
+.brand {
+  padding-block: var(--space-2);
+}
+
+/* Wide screens use a little more of the width */
+@media (min-width: 100rem) {
+  :root {
+    --max: 76rem;
+  }
+}
+
+/* Tablets: framed paintings become a wide strip instead of a tall block */
+@media (min-width: 40rem) and (max-width: 59.99rem) {
+  .definition__plate,
+  .sources__plate {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* Tablets: the three kinds of tawhid sit side by side when there is room */
+@media (min-width: 44rem) and (max-width: 55.99rem) {
+  .facets {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--space-4);
+  }
+}
+
+/* Phones */
+@media (max-width: 40rem) {
+  .hero__actions {
+    width: 100%;
+  }
+
+  .hero__actions .btn {
+    flex: 1 1 100%;
+  }
+
+  .hero__title {
+    font-size: clamp(3rem, 14vw, 4rem);
+  }
+
+  /* chapter links stack instead of squeezing side by side */
+  .chapter__foot {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .step-link {
+    max-width: none;
+  }
+
+  .step-link--next {
+    order: -1;
+  }
+
+  .stat {
+    padding: var(--space-3) var(--space-2);
+  }
+
+  .evidence {
+    padding: var(--space-4);
+  }
+
+  .seg__opt {
+    min-height: 2.4rem;
+    padding-inline: var(--space-1);
+    font-size: var(--step--1);
+  }
+
+  .setting {
+    padding: var(--space-3);
+  }
+
+  /* back-to-top stays small and clear of the last footer line */
+  .to-top {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  .site-footer {
+    padding-block-end: 5rem;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 22rem) {
+  .site-header__actions {
+    gap: 0;
+  }
+
+  .icon-btn {
+    padding-inline: var(--space-2);
+  }
+
+  .seg__note {
+    display: none;
+  }
+}
+
+/* Short landscape phones: the hero fits without its title being crowded */
+@media (max-height: 30rem) and (orientation: landscape) {
+  .hero {
+    min-height: 100svh;
+  }
+
+  .hero__inner {
+    padding-block: calc(var(--header-h) + var(--space-3)) var(--space-4);
+    gap: var(--space-2);
+  }
+
+  .hero__title {
+    font-size: clamp(2.6rem, 9vh, 3.4rem);
+  }
+}
